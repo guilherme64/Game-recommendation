@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>API Request Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+    button {
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    #response {
+      margin-top: 1.5rem;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Send Data to API</h1>
+
+  <div class="form-group">
+    <label for="input1">Input 1:</label>
+    <input type="text" id="input1" />
+  </div>
+  <div class="form-group">
+    <label for="input2">Input 2:</label>
+    <input type="text" id="input2" />
+  </div>
+  <div class="form-group">
+    <label for="input3">Input 3:</label>
+    <input type="text" id="input3" />
+  </div>
+  <div class="form-group">
+    <label for="input4">Input 4:</label>
+    <input type="text" id="input4" />
+  </div>
+  <div class="form-group">
+    <label for="input5">Input 5:</label>
+    <input type="text" id="input5" />
+  </div>
+
+  <button onclick="sendData()">Send</button>
+
+  <div id="response"></div>
+
+  <script>
+    function sendData() {
+      const data = {
+        field1: document.getElementById('input1').value,
+        field2: document.getElementById('input2').value,
+        field3: document.getElementById('input3').value,
+        field4: document.getElementById('input4').value,
+        field5: document.getElementById('input5').value,
+      };
+
+      fetch('/api', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(result => {
+        document.getElementById('response').textContent = JSON.stringify(result, null, 2);
+      })
+      .catch(error => {
+        document.getElementById('response').textContent = 'Error: ' + error;
+      });
+    }
+  </script>
+
+</body>
+</html>
