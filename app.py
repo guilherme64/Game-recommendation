@@ -53,11 +53,7 @@ def getAIResponse(data):
         })
     )
     response_data = response.json()
-    # Extract just the message content
-    message_content = response_data['choices'][0]['message']['content']
-    # Remove the Python code block markers if present
     message_content = message_content.replace('```python\n', '').replace('\n```', '')
-    # Remove any extra quotes
     message_content = message_content.strip('"')
     return jsonify({"recommendation": message_content})
 
